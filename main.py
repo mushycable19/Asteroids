@@ -5,7 +5,7 @@ from player import Player
 def main():
     pygame.init()
 
-    # Create the game window
+    # --- WINDOW SETUP ---
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Asteroids")
 
@@ -13,30 +13,39 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
 
-    # --- SETUP CLOCK AND PLAYER ---
+    # --- SETUP CLOCK ---
     clock = pygame.time.Clock()
     dt = 0
 
-    # Spawn player in the middle of the screen
+    # --- CREATE GROUPS ---
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # --- ASSIGN GROUPS TO PLAYER CLASS ---
+    Player.containers = (updatable, drawable)
+
+    # --- CREATE PLAYER INSTANCE ---
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # --- GAME LOOP ---
     while True:
-        # Handle input (exit on close)
+        # Handle input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
-        # --- UPDATE PHASE ---
-        player.update(dt)  # call player's update each frame
+        # --- UPDATE ALL OBJECTS ---
+        updatable.update(dt)
 
-        # --- DRAW PHASE ---
-        screen.fill((0, 0, 0))  # black background
-        player.draw(screen)     # draw the player
-        pygame.display.flip()   # refresh the screen
+        # --- DRAW ALL OBJECTS ---
+        screen.fill((0, 0, 0))
+        for obj in drawable:
+            obj.draw(screen)
+
+        pygame.display.flip()
 
         # --- FRAME TIMING ---
-        dt = clock.tick(60) / 1000  # convert to seconds
+        dt = clock.tick(60) / 1000
 
     pygame.quit()
 
