@@ -1,7 +1,7 @@
 # player.py
 import pygame
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -26,3 +26,7 @@ class Player(CircleShape):
     def update(self, dt):
         # Movement and rotation logic will go here later
         pass
+    
+    def rotate(self, dt):
+        # Rotate the player clockwise
+        self.rotation += PLAYER_TURN_SPEED * dt
