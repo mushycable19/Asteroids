@@ -1,4 +1,3 @@
-# main.py
 import pygame
 from constants import *
 from player import Player
@@ -28,13 +27,16 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        # Draw the game
-        screen.fill((0, 0, 0))  # Black background
-        player.draw(screen)     # Draw the player
-        pygame.display.flip()   # Refresh the display
+        # --- UPDATE PHASE ---
+        player.update(dt)  # call player's update each frame
 
-        # Limit to 60 FPS and get delta time
-        dt = clock.tick(60) / 1000
+        # --- DRAW PHASE ---
+        screen.fill((0, 0, 0))  # black background
+        player.draw(screen)     # draw the player
+        pygame.display.flip()   # refresh the screen
+
+        # --- FRAME TIMING ---
+        dt = clock.tick(60) / 1000  # convert to seconds
 
     pygame.quit()
 
