@@ -52,7 +52,7 @@ def main():
             for shot in shots:
                 if asteroid.alive() and shot.alive() and shot.collides_with(asteroid):
                 # remove both from all groups
-                    asteroid.kill()
+                    asteroid.split()
                     shot.kill()
 
 if __name__ == "__main__":
