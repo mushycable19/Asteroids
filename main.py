@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from player import Player
 from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
@@ -26,17 +27,15 @@ def main():
     # --- ASSIGN GROUPS TO CLASSES ---
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)  # only updatable
 
     # --- CREATE GAME OBJECTS ---
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
-    # (Temporary test asteroid to see it on screen)
-    Asteroid(200, 150, 50)
-    Asteroid(1000, 500, 30)
+    asteroid_field = AsteroidField()  # spawns asteroids automatically
 
     # --- GAME LOOP ---
     while True:
-        # --- HANDLE INPUT ---
+        # Handle input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
