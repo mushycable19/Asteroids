@@ -47,5 +47,13 @@ def main():
 
         dt = clock.tick(60) / 1000
 
+        # --- COLLISIONS: bullets vs. asteroids ---
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.alive() and shot.alive() and shot.collides_with(asteroid):
+                # remove both from all groups
+                    asteroid.kill()
+                    shot.kill()
+
 if __name__ == "__main__":
     main()
