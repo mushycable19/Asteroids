@@ -43,6 +43,13 @@ def main():
         # --- UPDATE PHASE ---
         updatable.update(dt)
 
+        # --- COLLISION CHECK: player vs. all asteroids ---
+        for ast in asteroids:
+            if player.collides_with(ast):
+                print("Game over!")
+                return  # exits main() immediately
+
+
         # --- DRAW PHASE ---
         screen.fill((0, 0, 0))
         for obj in drawable:
